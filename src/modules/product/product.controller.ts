@@ -26,7 +26,9 @@ const createProduct = catchAsync(async (req, res) => {
 
 // GET ALL
 const getAllProducts = catchAsync(async (req, res) => {
-  const products = await ProductServices.getAllProductsFromDB();
+  const products = await ProductServices.getAllProductsFromDB({
+    ...req.query,
+  });
 
   if (!products || products.length < 1) {
     throw new AppError(httpStatus.NOT_FOUND, 'Data not found!');
