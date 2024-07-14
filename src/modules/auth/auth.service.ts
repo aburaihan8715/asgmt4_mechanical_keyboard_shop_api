@@ -2,8 +2,14 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/AppError';
 import { User } from '../user/user.model';
 import { TLogin } from './auth.interface';
+import { TUser } from '../user/user.interface';
 
-const loginIntoDB = async (payload: TLogin) => {
+const registerIntoDB = async (payload: TUser) => {
+  const result = await User.create(payload);
+  return result;
+};
+
+const loginFromDB = async (payload: TLogin) => {
   const user = await User.findOne({ email: payload.email });
 
   if (!user) {
@@ -13,5 +19,6 @@ const loginIntoDB = async (payload: TLogin) => {
 };
 
 export const AuthServices = {
-  loginIntoDB,
+  loginFromDB,
+  registerIntoDB,
 };

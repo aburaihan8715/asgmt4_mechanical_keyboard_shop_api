@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { TUser } from './user.interface';
+import { TUser, UserModel } from './user.interface';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 const userSchema = new Schema(
   {
@@ -19,10 +21,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
       minlength: 6,
+      select: 0,
     },
     role: {
       type: String,
-      required: true,
       enum: ['user', 'admin'],
       default: 'user',
     },
@@ -37,4 +39,22 @@ const userSchema = new Schema(
   },
 );
 
-export const User = model<TUser>('User', userSchema);
+// DOCUMENT MIDDLEWARE
+userSchema.pre('save', async function (next) {
+  this.password = await bcrypt.hash(
+    this.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
+});
+
+userSchema.post('save', function (doc, next) {
+  doc.password = '';
+  next();
+});
+
+userSchema.statics.isUserExists = async function (email: string) {
+  return await User.findOne({ email }).select('+password');
+};
+
+export const User = model<TUser, UserModel>('User', userSchema);

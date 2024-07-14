@@ -1,0 +1,36 @@
+
+
+
+// 01 Model
+## Products
+_id
+title
+image
+brand
+availableQuantity
+price
+rating
+
+## User
+_id
+name
+email
+password
+role
+image
+
+## Cart
+_id,
+userId,
+products:[{productId,quantity}]
+
+
+## Order
+_id
+userId
+products:[{productId,quantity}]
+costAmount
+amount
+address
+status
+

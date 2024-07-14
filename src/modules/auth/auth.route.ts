@@ -7,6 +7,12 @@ import { AuthControllers } from './auth.controller';
 const router = express.Router();
 
 router.post(
+  '/register',
+  validateRequest(AuthValidationSchemas.registerValidationSchema),
+  AuthControllers.register,
+);
+
+router.post(
   '/login',
   validateRequest(AuthValidationSchemas.loginValidationSchema),
   AuthControllers.login,

@@ -5,6 +5,8 @@ import notFound from './middlewares/notFound';
 import globalErrorHandler from './middlewares/globalErrorHandler';
 import { UserRoutes } from './modules/user/user.route';
 import { AuthRoutes } from './modules/auth/auth.route';
+import { CartRoutes } from './modules/cart/cart.route';
+import { OrderRoutes } from './modules/order/order.route';
 
 export const app: Application = express();
 
@@ -21,6 +23,8 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/products', ProductRoutes);
 app.use('/api/users', UserRoutes);
 app.use('/api/auth', AuthRoutes);
+app.use('/api/carts', CartRoutes);
+app.use('/api/orders', OrderRoutes);
 
 // NOT FOUND ROUTE HANDLER
 app.use(notFound);
