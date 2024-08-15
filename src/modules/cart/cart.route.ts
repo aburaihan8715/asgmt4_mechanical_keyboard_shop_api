@@ -16,7 +16,7 @@ router
 
 router.get('/:id', CartControllers.getSingleCart);
 
-router.patch(
+router.put(
   '/:id',
   validateRequest(CartValidationSchemas.updateCartValidationSchema),
   CartControllers.updateCart,

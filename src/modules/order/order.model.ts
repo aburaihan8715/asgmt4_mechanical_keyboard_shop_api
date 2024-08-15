@@ -3,7 +3,10 @@ import { Schema } from 'mongoose';
 
 const OrderSchema = new Schema(
   {
-    userId: { type: String, required: true },
+    address: { type: String, required: true },
+    email: { type: String, required: true },
+    name: { type: String, required: true },
+    mobile: { type: String, required: true },
     products: [
       {
         productId: {
@@ -13,11 +16,12 @@ const OrderSchema = new Schema(
           type: Number,
           default: 1,
         },
+        _id: false,
       },
     ],
-    costAmount: { type: Number, required: true },
-    amount: { type: Number, required: true },
-    address: { type: Object, required: true },
+    totalAmount: { type: Number, required: true },
+    totalQuantity: { type: Number, required: true },
+
     status: {
       type: String,
       enum: ['pending', 'shipped', 'delivered', 'canceled'],

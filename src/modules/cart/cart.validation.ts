@@ -6,8 +6,10 @@ const createCartProductValidationSchema = z.object({
 });
 
 const createCartValidationSchema = z.object({
-  userId: z.string({ required_error: 'User Id is required.' }),
-  products: z.array(createCartProductValidationSchema),
+  body: z.object({
+    userId: z.string({ required_error: 'User Id is required.' }),
+    products: z.array(createCartProductValidationSchema),
+  }),
 });
 
 const updateCartProductValidationSchema = z.object({
@@ -16,8 +18,10 @@ const updateCartProductValidationSchema = z.object({
 });
 
 const updateCartValidationSchema = z.object({
-  userId: z.string().optional(),
-  products: z.array(updateCartProductValidationSchema).optional(),
+  body: z.object({
+    userId: z.string().optional(),
+    products: z.array(updateCartProductValidationSchema).optional(),
+  }),
 });
 
 export const CartValidationSchemas = {

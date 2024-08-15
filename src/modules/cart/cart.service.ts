@@ -30,9 +30,13 @@ const getSingleCartFromDB = async (id: string) => {
 const updateCartIntoDB = async (id: string, payload: Partial<TCart>) => {
   const result = await Cart.findByIdAndUpdate(
     id,
-    { ...payload },
-    { new: true },
+    { $set: payload },
+    {
+      new: true,
+      runValidators: true,
+    },
   );
+
   return result;
 };
 

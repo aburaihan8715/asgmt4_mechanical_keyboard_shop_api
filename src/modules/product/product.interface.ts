@@ -4,5 +4,6 @@ export type TProduct = {
   brand: string;
   availableQuantity: number;
   price: number;
+  description: string;
   rating: number;
 };

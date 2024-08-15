@@ -4,10 +4,12 @@ export type TOrderProduct = {
 };
 
 export type TOrder = {
-  userId: string;
-  products: TOrderProduct[];
-  costAmount: number;
-  amount: number;
   address: string;
+  email: string;
+  name: string;
+  mobile: string;
+  products: TOrderProduct[];
+  totalAmount: number;
+  totalQuantity: number;
   status: 'pending' | 'shipped' | 'delivered' | 'canceled';
 };

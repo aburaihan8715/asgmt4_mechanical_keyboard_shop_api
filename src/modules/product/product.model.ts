@@ -29,10 +29,14 @@ const productSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    description: {
+      type: String,
+      required: true,
+    },
     rating: {
       type: Number,
       required: true,
-      min: 0,
+      min: 1,
       max: 5,
     },
   },

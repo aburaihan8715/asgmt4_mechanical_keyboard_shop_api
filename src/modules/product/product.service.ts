@@ -99,10 +99,22 @@ const deleteProductFromDB = async (id: string) => {
   return result;
 };
 
+// REDUCE QUANTITY
+const deductProductQuantityFromDB = async (
+  id: string,
+  quantity: number,
+) => {
+  const result = await Product.findByIdAndUpdate(id, {
+    $inc: { availableQuantity: -quantity },
+  });
+  return result;
+};
+
 export const ProductServices = {
   createProductIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateProductIntoDB,
   deleteProductFromDB,
+  deductProductQuantityFromDB,
 };

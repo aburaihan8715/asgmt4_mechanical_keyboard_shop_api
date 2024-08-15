@@ -16,10 +16,11 @@ const createOrder = catchAsync(async (req, res) => {
       'Failed to creating new Order in DB',
     );
   }
-  res.status(200).json({
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
     success: true,
-    statusCode: 200,
-    message: 'Order created successfully !',
+    message: 'Order created successfully!',
     data: newOrder,
   });
 });

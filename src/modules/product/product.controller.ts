@@ -103,10 +103,35 @@ const deleteProduct = catchAsync(async (req, res) => {
   });
 });
 
+const deductProductQuantity = catchAsync(async (req, res) => {
+  const { orderData } = req.body;
+
+  if (!orderData || !Array.isArray(orderData)) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Invalid order data!');
+  }
+
+  const updatePromises = orderData.map((item) =>
+    ProductServices.deductProductQuantityFromDB(
+      item.productId,
+      item.quantity,
+    ),
+  );
+
+  await Promise.all(updatePromises);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Product quantities updated successfully!',
+    data: null,
+  });
+});
+
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  deductProductQuantity,
 };
