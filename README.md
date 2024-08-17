@@ -8,8 +8,6 @@ https://mechanical-keyboard-theta.vercel.app/
 
 https://github.com/aburaihan8715/asgmt4_mechanical_keyboard_shop_api
 
-## Overview video link:
-
 ## Technologies used:
 
 1. Typescript
