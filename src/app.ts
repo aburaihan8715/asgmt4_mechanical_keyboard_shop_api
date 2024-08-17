@@ -12,7 +12,10 @@ export const app: Application = express();
 
 // GLOBAL MIDDLEWARES
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:5173' }));
+// app.use(
+//   cors({ origin: 'https://mechanical-keyboard-asgmt4.netlify.app' }),
+// );
+app.use(cors());
 
 // TEST ROUTE
 app.get('/', (req: Request, res: Response) => {
