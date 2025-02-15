@@ -4,7 +4,6 @@ import catchAsync from '../../utils/catchAsync';
 import { ProductServices } from './product.service';
 import sendResponse from '../../utils/sendResponse';
 
-// CREATE
 const createProduct = catchAsync(async (req, res) => {
   const newProduct = await ProductServices.createProductIntoDB({
     ...req.body,
@@ -16,15 +15,14 @@ const createProduct = catchAsync(async (req, res) => {
       'Failed to creating new product in DB',
     );
   }
-  res.status(200).json({
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
     success: true,
-    statusCode: 200,
     message: 'Product created successfully !',
     data: newProduct,
   });
 });
 
-// GET ALL
 const getAllProducts = catchAsync(async (req, res) => {
   const products = await ProductServices.getAllProductsFromDB({
     ...req.query,
@@ -42,7 +40,6 @@ const getAllProducts = catchAsync(async (req, res) => {
   });
 });
 
-// GET ONE
 const getSingleProduct = catchAsync(async (req, res) => {
   const product = await ProductServices.getSingleProductFromDB(
     req.params.id,
@@ -60,7 +57,6 @@ const getSingleProduct = catchAsync(async (req, res) => {
   });
 });
 
-// UPDATE
 const updateProduct = catchAsync(async (req, res) => {
   const updatedProduct = await ProductServices.updateProductIntoDB(
     req.params.id,
@@ -82,7 +78,6 @@ const updateProduct = catchAsync(async (req, res) => {
   });
 });
 
-// DELETE
 const deleteProduct = catchAsync(async (req, res) => {
   const deletedProduct = await ProductServices.deleteProductFromDB(
     req.params.id,

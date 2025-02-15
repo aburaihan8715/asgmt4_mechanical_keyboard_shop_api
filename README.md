@@ -27,11 +27,11 @@ https://github.com/aburaihan8715/asgmt4_mechanical_keyboard_shop_api
 
 ## Products:
 
-- /api/products(POST)
-- /api/products(GET)
-- /api/products/:id(GET)
-- /api/products/:id(PUT)
-- /api/products/:id(DELETE)
+- /api/v1/products(POST)
+- /api/v1/products(GET)
+- /api/v1/products/:id(GET)
+- /api/v1/products/:id(PUT)
+- /api/v1/products/:id(DELETE)
 
 ## Scripts
 

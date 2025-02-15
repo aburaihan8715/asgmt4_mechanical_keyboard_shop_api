@@ -1,15 +1,10 @@
 import httpStatus from 'http-status';
-import AppError from '../../errors/AppError';
 import catchAsync from '../../utils/catchAsync';
 import { UserServices } from './user.service';
 import sendResponse from '../../utils/sendResponse';
 
 const getAllUsers = catchAsync(async (req, res) => {
   const users = await UserServices.getAllUsersFromDB();
-
-  if (!users || users.length < 1) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Data not found!');
-  }
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -19,12 +14,10 @@ const getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
-const getSingleUser = catchAsync(async (req, res) => {
-  const user = await UserServices.getSingleUserFromDB(req.params.id);
-
-  if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Data not found!');
-  }
+const getMe = catchAsync(async (req, res) => {
+  const userId = req.user?._id as string;
+  const role = req.user?.role as string;
+  const user = await UserServices.getMeFromDB(userId, role);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -33,7 +26,40 @@ const getSingleUser = catchAsync(async (req, res) => {
     data: user,
   });
 });
+
+const updateMe = catchAsync(async (req, res) => {
+  const userId = req.user?._id as string;
+  const role = req.user?.role as string;
+  const updatedUser = await UserServices.updateMeIntoDB(
+    userId,
+    role,
+    req.body,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User updated successfully !',
+    data: updatedUser,
+  });
+});
+
+const deleteMe = catchAsync(async (req, res) => {
+  const userId = req.user?._id as string;
+  const role = req.user?.role as string;
+  const user = await UserServices.deleteMeFromDB(userId, role);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'User deleted successfully !',
+    data: user,
+  });
+});
+
 export const UserControllers = {
   getAllUsers,
-  getSingleUser,
+  getMe,
+  updateMe,
+  deleteMe,
 };

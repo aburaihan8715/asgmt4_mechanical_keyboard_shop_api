@@ -1,12 +1,10 @@
 import express, { Request, Response, Application } from 'express';
-import { ProductRoutes } from './modules/product/product.route';
 import cors from 'cors';
+import morgan from 'morgan';
 import notFound from './middlewares/notFound';
 import globalErrorHandler from './middlewares/globalErrorHandler';
-import { UserRoutes } from './modules/user/user.route';
-import { AuthRoutes } from './modules/auth/auth.route';
-import { CartRoutes } from './modules/cart/cart.route';
-import { OrderRoutes } from './modules/order/order.route';
+import router from './routes';
+import config from './config';
 
 export const app: Application = express();
 
@@ -21,6 +19,11 @@ app.use(
   }),
 );
 
+// LOGGER MIDDLEWARE
+if (config.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
 // TEST ROUTE
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({
@@ -30,11 +33,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // ROUTES
-app.use('/api/products', ProductRoutes);
-app.use('/api/users', UserRoutes);
-app.use('/api/auth', AuthRoutes);
-app.use('/api/carts', CartRoutes);
-app.use('/api/orders', OrderRoutes);
+app.use('/api/v1', router);
 
 // NOT FOUND ROUTE HANDLER
 app.use(notFound);

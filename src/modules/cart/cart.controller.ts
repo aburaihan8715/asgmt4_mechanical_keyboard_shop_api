@@ -16,9 +16,9 @@ const createCart = catchAsync(async (req, res) => {
       'Failed to creating new cart in DB',
     );
   }
-  res.status(200).json({
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
     success: true,
-    statusCode: 200,
     message: 'Cart created successfully !',
     data: newCart,
   });
