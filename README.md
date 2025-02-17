@@ -2,7 +2,7 @@
 
 ## Live link:
 
-https://mechanical-keyboard-theta.vercel.app
+https://asgmt4-mechanical-keyboard-shop-api.vercel.app
 
 ## Github link:
 
